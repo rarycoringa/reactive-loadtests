@@ -1,7 +1,7 @@
 [project]
-name = "loadtest"
-version = "0.1.0"
-description = "Add your description here"
+name = "loadtests"
+version = "1.0.0"
+description = "Load Tests using Locust"
 readme = "README.md"
 requires-python = ">=3.12.11"
 dependencies = [
