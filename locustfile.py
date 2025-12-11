@@ -4,31 +4,81 @@ import uuid
 from locust import HttpUser, task, between
 
 
-available_user_ids = [
-    "68f7b7a0abcaab3f62083003", "68f7b841f05374f289c2cc94", "68f9b0fb5493f3c689493dc1",
-    "68f9b0fc5493f3c689493dc2", "68f9b0fd5493f3c689493dc3", "68f9b0fd5493f3c689493dc4",
-    "68f9b0fe5493f3c689493dc5", "68f9b0ff5493f3c689493dc6", "68f9b0ff5493f3c689493dc7",
-    "68f9b1005493f3c689493dc8", "68f9b1005493f3c689493dc9", "68f9b1015493f3c689493dca", 
-    "68f9b1015493f3c689493dcb", "68f9b1025493f3c689493dcc", "68f9b1025493f3c689493dcd",
-    "68f9b1035493f3c689493dce", "68f9b1035493f3c689493dcf", "68f9b1045493f3c689493dd0",
-    "68f9b1045493f3c689493dd1", "68f9b1055493f3c689493dd2", "68f9b1075493f3c689493dd3",
-    "68f9b1075493f3c689493dd4", "68f9b2265493f3c689493dd5", "68f9b2315493f3c689493dd6",
+available_products = [
+    "693588e037df55e061dcb340", "693588f037df55e061dcb341", "693588fa37df55e061dcb342",
+    "693a3e4535346020a1a211e9", "693a4d8598984e43b714d3e3", "693a4d8598984e43b714d3e4",
+    "693a4d8698984e43b714d3e5", "693a4d8798984e43b714d3e6", "693a4d8898984e43b714d3e7",
+    "693a4d8998984e43b714d3e8", "693a4d8a98984e43b714d3e9", "693a4d8b98984e43b714d3ea",
+    "693a4d8b98984e43b714d3eb", "693a4d8c98984e43b714d3ec", "693a4d8d98984e43b714d3ed",
+    "693a4d8d98984e43b714d3ee", "693a4d8e98984e43b714d3ef", "693a4d8f98984e43b714d3f0",
+    "693a4d9098984e43b714d3f1", "693a4e1698984e43b714d3f2", "693a4e1698984e43b714d3f4",
+    "693a4e1698984e43b714d3f5", "693a4e1698984e43b714d3f6", "693a4e1698984e43b714d3f8",
+    "693a4e1698984e43b714d3f9", "693a4e1698984e43b714d3fa", "693a4e1698984e43b714d3f3",
+    "693a4e1698984e43b714d3fb", "693a4e1698984e43b714d3f7", "693a4e1698984e43b714d3fc",
+    "693a4e1698984e43b714d3fd", "693a4e1698984e43b714d3fe", "693a4e1698984e43b714d3ff",
+    "693a4e1698984e43b714d400", "693a4e1698984e43b714d401", "693a4e1698984e43b714d402",
+    "693a4e1698984e43b714d403", "693a4e1698984e43b714d404", "693a4e1698984e43b714d405",
+    "693a4e1698984e43b714d406", "693a4e1698984e43b714d407", "693a4e1698984e43b714d408",
+    "693a4e1698984e43b714d409", "693a4e1698984e43b714d40a", "693a4e1698984e43b714d40b",
+    "693a4e1698984e43b714d40d", "693a4e1698984e43b714d40c", "693a4e1698984e43b714d40e",
+    "693a4e1698984e43b714d40f", "693a4e1698984e43b714d410", "693a4e1698984e43b714d411",
+    "693a4e1698984e43b714d412", "693a4e1698984e43b714d413", "693a4e1698984e43b714d414",
+    "693a4e1698984e43b714d415", "693a4e1698984e43b714d416", "693a4e1698984e43b714d417",
+    "693a4e1698984e43b714d418", "693a4e1698984e43b714d419", "693a4e1698984e43b714d41a",
+    "693a4e1698984e43b714d41b", "693a4e1698984e43b714d41c", "693a4e1698984e43b714d41d",
+    "693a4e1698984e43b714d41e", "693a4e1698984e43b714d41f", "693a4e1698984e43b714d420",
+    "693a4e1698984e43b714d421", "693a4e1698984e43b714d422", "693a4e1698984e43b714d423",
+    "693a4e1698984e43b714d424", "693a4e1698984e43b714d425", "693a4e1698984e43b714d426",
+    "693a4e1698984e43b714d427", "693a4e1698984e43b714d428", "693a4e1698984e43b714d429",
+    "693a4e1698984e43b714d42a", "693a4e1698984e43b714d42b", "693a4e1698984e43b714d42c",
+    "693a4e1698984e43b714d42d", "693a4e1698984e43b714d42e", "693a4e1698984e43b714d42f",
+    "693a4e1698984e43b714d430", "693a4e1698984e43b714d431", "693a4e1698984e43b714d432",
+    "693a4e1698984e43b714d433", "693a4e1698984e43b714d434", "693a4e1698984e43b714d435",
+    "693a4e1698984e43b714d436", "693a4e1698984e43b714d437", "693a4e1698984e43b714d438",
+    "693a4e1698984e43b714d439", "693a4e1698984e43b714d43a", "693a4e1698984e43b714d43b",
+    "693a4e1698984e43b714d43c", "693a4e1698984e43b714d43d", "693a4e1698984e43b714d43e",
+    "693a4e1698984e43b714d43f", "693a4e1698984e43b714d440", "693a4e1698984e43b714d441",
+    "693a4e1698984e43b714d442", "693a4e1698984e43b714d443", "693a4e1698984e43b714d444",
+    "693a4e1698984e43b714d445", "693a4e1698984e43b714d446", "693a4e1698984e43b714d447",
+    "693a4e1698984e43b714d448", "693a4e1698984e43b714d449", "693a4e1698984e43b714d44a",
+    "693a4e1698984e43b714d44b", "693a4e1698984e43b714d44c", "693a4e1698984e43b714d44d",
+    "693a4e1698984e43b714d44e", "693a4e1698984e43b714d44f", "693a4e1698984e43b714d450",
+    "693a4e1698984e43b714d451", "693a4e1698984e43b714d452", "693a4e1698984e43b714d453",
+    "693a4e1698984e43b714d454", "693a4e1698984e43b714d455", "693a4ebdb30ba91048c26859",
 ]
 
+uk_cities = [
+    "London", "Manchester", "Birmingham", "Liverpool",
+    "Leeds", "Bristol", "Edinburgh", "Glasgow",
+    "Sheffield", "Cardiff", "Belfast", "Newcastle",
+    "Nottingham", "Southampton", "Brighton", "Cambridge",
+    "Oxford", "York", "Bath", "Durham",]
 
-class RestAPIUser(HttpUser):
-    wait_time = between(1, 2)
+
+class WebFluxAPIUser(HttpUser):
+    wait_time = between(0.1, 0.5)
 
     @task(3)
-    def create_a_post(self):
-        endpoint = "/post/restapi/posts"
+    def create_order(self):
+        endpoint = "/order/orders"
         headers = {"Content-Type": "application/json"}
 
-        user_id = random.choice(available_user_ids)
+        product_id = random.choice(available_products)
+        split_into = random.randint(1, 6)
+        card_number = (
+            f"{random.randint(1000, 9999)}"
+            f" {random.randint(1000, 9999)}"
+            f" {random.randint(1000, 9999)}"
+            f" {random.randint(1000, 9999)}"
+        )
+        address = f"{random.choice(uk_cities)}, UK"
 
         payload = {
-            "content": f"Hello, world! This is my post {uuid.uuid4()} with RestAPI",
-            "user_id": user_id,
+            "product_id": product_id,
+            "product_quantity": 0,
+            "split_into": split_into,
+            "card_number": card_number,
+            "address": address,
         }
 
         with self.client.post(
@@ -39,158 +89,3 @@ class RestAPIUser(HttpUser):
         ) as response:
             if response.status_code != 200:
                 response.failure(f"Unexpected status {response.status_code}")
-    
-    @task(2)
-    def retrieve_an_user(self):
-        user_id = random.choice(available_user_ids)
-        endpoint = f"/user/restapi/users/{user_id}"
-        headers = {"Content-Type": "application/json"}
-
-        with self.client.get(
-            endpoint,
-            headers=headers,
-            catch_response=True,
-        ) as response:
-            if response.status_code != 200:
-                response.failure(f"Unexpected status {response.status_code}")
-
-    @task(1)
-    def retrieve_my_posts(self):
-        endpoint = f"/post/restapi/posts"
-        headers = {"Content-Type": "application/json"}
-
-        user_id = random.choice(available_user_ids)
-        params = {"user_id": user_id}
-
-        with self.client.get(
-            endpoint,
-            headers=headers,
-            params=params,
-            catch_response=True,
-        ) as response:
-            if response.status_code != 200:
-                response.failure(f"Unexpected status {response.status_code}")
-
-
-class GraphQLUser(HttpUser):
-    wait_time = between(1, 2)
-
-    @task(3)
-    def create_a_post(self):
-        endpoint = "/post/graphql"
-        headers = {"Content-Type": "application/json"}
-
-        mutation = """
-        mutation Save($input: CreatePostInput!) {
-            save(createPostInput: $input) {
-                id
-                content
-                user {
-                    id
-                    name
-                    age
-                }
-                comments {
-                    content
-                    user {
-                        name
-                    }
-                }
-            }
-        }
-        """
-
-        user_id = random.choice(available_user_ids)
-
-        payload = {
-            "query": mutation,
-            "variables": {
-                "input": {
-                    "content": f"Hello, world! This is my post {uuid.uuid4()} with GraphQL",
-                    "userId":  user_id,
-                }
-            },
-        }
-
-        with self.client.post(
-            endpoint,
-            json=payload,
-            headers=headers,
-            catch_response=True,
-        ) as response:
-            if response.status_code == 200:
-                try:
-                    data = response.json()["data"]["save"]
-                    post_id = data["id"]
-                    response.success()
-                except Exception as e:
-                    response.failure("Mutation returned unexpected data: " + str(e))
-                    return
-
-    @task(2)
-    def retrieve_an_user(self):
-        user_id = random.choice(available_user_ids)
-        endpoint = "/user/graphql"
-        headers = {"Content-Type": "application/json"}
-
-        query = """
-        query GetById($id: String!) {
-            getById(id: $id) {
-                id
-                name
-                age
-                createdAt
-            }
-        }
-        """
-
-        payload = {
-            "query": query,
-            "variables": {"id": user_id},
-        }
-
-        with self.client.post(endpoint, json=payload, headers=headers, catch_response=True) as response:
-            if response.status_code == 200:
-                try:
-                    data = response.json()["data"]["getById"]
-                    response.success()
-                except Exception as e:
-                    response.failure("Query returned unexpected data: " + str(e))
-            else:
-                response.failure(f"Query failed: {response.status_code}")
-
-    @task(1)
-    def retrieve_my_posts(self):
-        user_id = random.choice(available_user_ids)
-        endpoint = "/post/graphql"
-        headers = {"Content-Type": "application/json"}
-
-        query = """
-        query GetAllByUserId($userId: String!) {
-            getAllByUserId(userId: $userId) {
-                content
-                user {
-                    name
-                }
-                comments {
-                    content
-                }
-                createdAt
-            }
-        }
-        """
-
-        payload = {
-            "query": query,
-            "variables": {"userId": user_id},
-        }
-
-        with self.client.post(endpoint, json=payload, headers=headers, catch_response=True) as response:
-            if response.status_code == 200:
-                try:
-                    data = response.json()["data"]["getAllByUserId"]
-                    response.success()
-                except Exception as e:
-                    response.failure("Query returned unexpected data: " + str(e))
-            else:
-                response.failure(f"Query failed: {response.status_code}")
