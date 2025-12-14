@@ -1,7 +1,7 @@
 load-saga:
     uv run locust --host http://localhost:8080 \
-        --headless --users 20000 --spawn-rate 500 --run-time 2min \
-        --html report-orchestration-rabbitmq.html \
+        --headless --users 5000 --spawn-rate 250 --run-time 2min \
+        --html report-ministore-application.html \
         WebFluxAPIUser
 
 web:
